@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 
-// const tr =
-
 class Table extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      direction: {
+        site_base_url: 'asc',
+        enabled: 'asc',
+        last_update_timestamp: 'asc'
+      }
     };
+
+    this.sortBy = this.sortBy.bind(this);
   }
 
   componentDidMount() {
@@ -18,8 +23,24 @@ class Table extends Component {
       .catch(error => console.error(error.message));
   }
 
+  sortBy(key) {
+    this.setState(state => ({
+      data: state.data.sort(
+        (a, b) =>
+          this.state.direction[key] === 'asc'
+            ? a[key] < b[key] ? -1 : 1
+            : a[key] > b[key] ? -1 : 1
+      ),
+      direction: {
+        [key]: this.state.direction[key] === 'asc' ? 'desc' : 'asc'
+      },
+      active: !state.active
+    }));
+  }
+
   render() {
     let data = this.state.data;
+    let headers = ['site_base_url', 'enabled', 'last_update_timestamp'];
 
     return (
       <div>
@@ -27,14 +48,31 @@ class Table extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th>site_base_url</th>
-              <th>enabled</th>
-              <th>last_update_timestamp</th>
+              {headers.map((header, index) => {
+                const arrow =
+                  this.state.direction[header] === 'asc'
+                    ? 'is--asc'
+                    : 'is--desc';
+                const classes = `btn btn--plain ${arrow}`;
+
+                return (
+                  <th>
+                    <button
+                      onClick={() => this.sortBy(header)}
+                      key={index}
+                      className={classes}
+                    >
+                      {header}
+                    </button>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
+
           <tbody>
-            {data.map(row =>
-              <tr>
+            {data.map((row, i) =>
+              <tr key={i}>
                 <td>
                   {row.site_base_url}
                 </td>

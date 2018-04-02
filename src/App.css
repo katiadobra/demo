@@ -2,10 +2,16 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
+body,
+html {
   padding: 0;
-  font-family: sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: Helvetica, Arial, serif;
+  font-size: 16px;
 }
 
 ul {
@@ -33,6 +39,13 @@ a {
   border-radius: 6px;
 }
 
+.btn--plain {
+  padding: 5px;
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 14px;
+}
+
 .btn:hover,
 .btn:active,
 .btn.active {
@@ -57,7 +70,6 @@ a {
 }
 
 .content {
-  font-size: 20px;
   display: flex;
   margin: 25px auto;
 }
@@ -97,4 +109,71 @@ tr {
   padding: 15px;
   vertical-align: top;
   border-bottom: 1px solid #dee2e6;
+  font-weight: normal;
+}
+
+.is--active {
+  color: #fff;
+}
+
+.is--asc:before,
+.is--desc:before {
+  content: "▲";
+  position: absolute;
+  margin-left: -25px;
+  color: transparent;
+  font-size: 16px;
+}
+
+.is--desc:before {
+  content: "▼";
+  /* margin-top: 5px; */
+}
+
+.is--asc:hover:before,
+.is--desc:hover:before {
+  color: #fff;
+}
+
+@media (min-width: 769px) {
+  .btn {
+    outline: none;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 90px;
+    padding: 10px;
+  }
+  .demo {
+    flex-direction: column;
+  }
+
+  li {
+    display: inline-block;
+  }
+
+  .table {
+    padding: 0;
+  }
+  .table thead th {
+    font-size: 10px;
+    font-weight: normal;
+    padding: 5px;
+  }
+
+  .table td,
+  .table th {
+    padding: 5px;
+  }
+
+  .btn--plain {
+    font-size: 10px;
+  }
 }
