@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { sortable } from 'react-sortable';
 
 class Table extends Component {
   constructor(props) {
@@ -34,12 +33,14 @@ class Table extends Component {
       ),
       direction: {
         [key]: this.state.direction[key] === 'asc' ? 'desc' : 'asc'
-      }
+      },
+      active: !state.active
     }));
   }
 
   render() {
     let data = this.state.data;
+    let headers = ['site_base_url', 'enabled', 'last_update_timestamp'];
 
     return (
       <div>
@@ -47,30 +48,25 @@ class Table extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th>
-                <button
-                  onClick={() => this.sortBy('site_base_url')}
-                  className="btn btn--plain"
-                >
-                  site_base_url
-                </button>
-              </th>
-              <th>
-                <button
-                  onClick={() => this.sortBy('enabled')}
-                  className="btn btn--plain"
-                >
-                  enabled
-                </button>
-              </th>
-              <th>
-                <button
-                  onClick={() => this.sortBy('last_update_timestamp')}
-                  className="btn btn--plain"
-                >
-                  last_update_timestamp
-                </button>
-              </th>
+              {headers.map((header, index) => {
+                const arrow =
+                  this.state.direction[header] === 'asc'
+                    ? 'is--asc'
+                    : 'is--desc';
+                const classes = `btn btn--plain ${arrow}`;
+
+                return (
+                  <th>
+                    <button
+                      onClick={() => this.sortBy(header)}
+                      key={index}
+                      className={classes}
+                    >
+                      {header}
+                    </button>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
 
