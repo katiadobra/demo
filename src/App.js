@@ -13,13 +13,13 @@ class App extends Component {
       <Router>
         <div className="demo">
           <Sidebar />
-          <div className="content">
+          <main className="content">
             <Switch>
               <Route path="/" component={Home} exact />
               <Route path="/data" component={Table} />
               <Route component={NotFound} />
             </Switch>
-          </div>
+          </main>
         </div>
       </Router>
     );

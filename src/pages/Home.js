@@ -2,9 +2,9 @@ import React from 'react';
 
 function Home() {
   return (
-    <main>
-      <div className="main">Welcome to my demo</div>
-    </main>
+    <div className="main">
+      <p>Welcome to my demo</p>
+    </div>
   );
 }
 

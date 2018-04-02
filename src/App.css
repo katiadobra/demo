@@ -41,8 +41,11 @@ a {
 
 .demo {
   display: flex;
-  align-items: center;
   text-align: center;
+}
+
+.main {
+  margin: auto;
 }
 
 .sidebar {
@@ -56,5 +59,42 @@ a {
 .content {
   font-size: 20px;
   display: flex;
-  margin: auto;
+  margin: 25px auto;
+}
+
+/* Table screen  */
+.table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 20px;
+  padding: 20px;
+  background-color: transparent;
+  border: solid #f7f7f9;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+thead {
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  background-color: #212529;
+  border-color: #32383e;
+  color: #fff;
+}
+
+.table td,
+.table th {
+  padding: 15px;
+  vertical-align: top;
+  border-bottom: 1px solid #dee2e6;
 }
