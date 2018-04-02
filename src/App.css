@@ -6,6 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  font-size: 16px;
 }
 
 ul {
@@ -33,6 +34,13 @@ a {
   border-radius: 6px;
 }
 
+.btn--plain {
+  padding: 5px;
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 14px;
+}
+
 .btn:hover,
 .btn:active,
 .btn.active {
@@ -57,7 +65,6 @@ a {
 }
 
 .content {
-  font-size: 20px;
   display: flex;
   margin: 25px auto;
 }
@@ -97,4 +104,22 @@ tr {
   padding: 15px;
   vertical-align: top;
   border-bottom: 1px solid #dee2e6;
+}
+
+.is--active {
+  color: #fff;
+}
+
+.is--asc:before,
+.is--desc:before {
+  content: "▲";
+  position: absolute;
+  margin-left: -25px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.is--desc:before {
+  content: "▼";
+  margin-top: 5px;
 }
