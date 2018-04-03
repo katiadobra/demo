@@ -12,7 +12,7 @@ function Sidebar() {
         </li>
         <li>
           <NavLink to="/data" className="btn">
-            Table
+            Screen with table
           </NavLink>
         </li>
       </ul>

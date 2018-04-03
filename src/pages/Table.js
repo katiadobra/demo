@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const header = ['site_base_url', 'enabled', 'last_update_timestamp'];
 
@@ -15,8 +16,6 @@ class Table extends Component {
         last_update_timestamp: 'asc'
       }
     };
-
-    this.sortBy = this.sortBy.bind(this);
   }
 
   componentDidMount() {
@@ -29,12 +28,14 @@ class Table extends Component {
 
   sortBy(key) {
     this.setState(state => ({
-      data: state.data.sort(
-        (a, b) =>
-          state.direction[key] === 'asc'
-            ? a[key] < b[key] ? -1 : 1
-            : a[key] > b[key] ? -1 : 1
-      ),
+      data: state.data
+        .slice()
+        .sort(
+          (a, b) =>
+            state.direction[key] === 'asc'
+              ? a[key] < b[key] ? -1 : 1
+              : a[key] > b[key] ? -1 : 1
+        ),
       direction: {
         [key]: state.direction[key] === 'asc' ? 'desc' : 'asc'
       }
@@ -45,8 +46,8 @@ class Table extends Component {
     const data = this.state.data;
 
     return (
-      <div>
-        <h2>My Data</h2>
+      <main className="content">
+        <h1 className="caption">My Data</h1>
         <table className="table">
           <thead>
             <tr>
@@ -75,7 +76,9 @@ class Table extends Component {
             {data.map((row, i) =>
               <tr key={i}>
                 <td>
-                  {row.site_base_url}
+                  <Link to={row.site_base_url} target="_blank">
+                    {row.site_base_url}
+                  </Link>
                 </td>
                 <td>
                   {row.enabled}
@@ -87,7 +90,7 @@ class Table extends Component {
             )}
           </tbody>
         </table>
-      </div>
+      </main>
     );
   }
 }
