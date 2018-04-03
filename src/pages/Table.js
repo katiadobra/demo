@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+const header = ['site_base_url', 'enabled', 'last_update_timestamp'];
 
 class Table extends Component {
   constructor(props) {
@@ -17,8 +20,9 @@ class Table extends Component {
   }
 
   componentDidMount() {
-    fetch('http://54.173.199.0:5555/test')
-      .then(resp => resp.json())
+    axios
+      .get('http://54.173.199.0:5555/test')
+      .then(resp => resp.data)
       .then(data => this.setState({ data }))
       .catch(error => console.error(error.message));
   }
@@ -27,20 +31,18 @@ class Table extends Component {
     this.setState(state => ({
       data: state.data.sort(
         (a, b) =>
-          this.state.direction[key] === 'asc'
+          state.direction[key] === 'asc'
             ? a[key] < b[key] ? -1 : 1
             : a[key] > b[key] ? -1 : 1
       ),
       direction: {
-        [key]: this.state.direction[key] === 'asc' ? 'desc' : 'asc'
-      },
-      active: !state.active
+        [key]: state.direction[key] === 'asc' ? 'desc' : 'asc'
+      }
     }));
   }
 
   render() {
-    let data = this.state.data;
-    let headers = ['site_base_url', 'enabled', 'last_update_timestamp'];
+    const data = this.state.data;
 
     return (
       <div>
@@ -48,7 +50,7 @@ class Table extends Component {
         <table className="table">
           <thead>
             <tr>
-              {headers.map((header, index) => {
+              {header.map((header, index) => {
                 const arrow =
                   this.state.direction[header] === 'asc'
                     ? 'is--asc'
@@ -56,10 +58,9 @@ class Table extends Component {
                 const classes = `btn btn--plain ${arrow}`;
 
                 return (
-                  <th>
+                  <th key={index}>
                     <button
                       onClick={() => this.sortBy(header)}
-                      key={index}
                       className={classes}
                     >
                       {header}
